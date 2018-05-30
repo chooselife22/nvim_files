@@ -34,7 +34,7 @@ if dein#load_state('/home/asc/.local/share/dein')
   call dein#add('mhartington/oceanic-next')
   call dein#add('arcticicestudio/nord-vim')
 
-
+  call dein#add('vim-airline/vim-airline')
 
   " Required:
   call dein#end()
@@ -93,3 +93,6 @@ colorscheme nord
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" Airline required
+set laststatus=2
