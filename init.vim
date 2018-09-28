@@ -96,3 +96,6 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Airline required
 set laststatus=2
+
+set foldmethod=syntax
+set foldlevel=20
