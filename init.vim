@@ -12,14 +12,14 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/asc/.local/share/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/home/asc/.local/share/dein')
-  call dein#begin('/home/asc/.local/share/dein')
+if dein#load_state( '~/.cache/dein')
+  call dein#begin( '~/.cache/dein')
 
   " Required:
-  call dein#add('/home/asc/.local/share/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   call dein#add('wsdjeg/dein-ui.vim')
 
