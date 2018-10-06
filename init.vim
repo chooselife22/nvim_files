@@ -2,7 +2,7 @@
 " vim  : place in $HOME/.vimrc
 " nvim : place in $HOME/.config/nvim/init.vim
 " General settings
-" ---------------------------------------------------------------------------
+" --------------------------------------------------------------------------- 
 " drop vi support - kept for vim compatibility but not needed for nvim
 " set the runtime path to include Vundle and initialize
 
@@ -23,11 +23,55 @@ if dein#load_state( '~/.cache/dein')
 
   call dein#add('wsdjeg/dein-ui.vim')
 
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
+  " call dein#add('Shougo/deoplete.nvim')
+
+  " nvim Completion Manager
+  call dein#add('ncm2/ncm2')
+  call dein#add('roxma/nvim-yarp')
+  " call dein#add('ncm2/ncm2-neoinclude')
+    " enable ncm2 for all buffers
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    " :help Ncm2PopupOpen for more information
+    set completeopt=noinsert,menuone,noselect
+    " " Use <TAB> to select the popup menu:
+    set shortmess+=c
+    inoremap <c-c> <ESC>
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    call dein#add('ncm2/ncm2-bufword')
+    call dein#add('ncm2/ncm2-path')
+    call dein#add('ncm2/ncm2-tmux')
+    " call dein#add('ncm2/ncm2-html-subscope')
+    " call dein#add('ncm2/ncm2-markdown-subscope')
+    " call dein#add('ncm2/ncm2-tern')
+    " call dein#add('ncm2/ncm2-cssomni')
+    " call dein#add('ncm2/ncm2-syntax')
+
+    " call dein#add('ncm2/ncm2-match-highlight')
+    " call dein#add('ncm2/ncm2-ultisnips')
+    " call dein#add('SirVer/ultisnips')
+    " call dein#add('honza/vim-snippets')
+
+    " " inoremap <silent> <expr> <CR> ((pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>" ))
+
+    " " c-j c-k for moving in snippet
+    " imap <expr> <c-u> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
+    " smap <c-u> <Plug>(ultisnips_expand)
+    " let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+    " let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+    " let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+    " let g:UltiSnipsRemoveSelectModeMappings = 0
+
+  " call dein#add('Shougo/neosnippet.vim')
+  " call dein#add('Shougo/neosnippet-snippets')
+  
+  call dein#add('tpope/vim-endwise')
 
   call dein#add('tpope/vim-rails')
+    command! Eroutes Einitializer
+    command! Rroutes Einitializer
+
   call dein#add('slim-template/vim-slim')
 
   " You can specify revision/branch/tag.
@@ -35,6 +79,17 @@ if dein#load_state( '~/.cache/dein')
   call dein#add('arcticicestudio/nord-vim')
 
   call dein#add('vim-airline/vim-airline')
+    " Airline required
+    set laststatus=2
+
+  call dein#add('ctrlpvim/ctrlp.vim')
+    " CtrlP
+    let g:ctrlp_map = '<c-f>'
+    let g:ctrlp_cmd = 'CtrlP'
+
+    nmap <c-b> <Esc>:CtrlPBuffer<CR>
+
+  call dein#add('tpope/vim-commentary')
 
   " Required:
   call dein#end()
@@ -91,11 +146,17 @@ syntax enable
 colorscheme nord
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" Airline required
-set laststatus=2
+" let g:deoplete#enable_at_startup = 1
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 set foldmethod=syntax
 set foldlevel=20
+
+set hidden
+
+set list
+set listchars=trail:-
+
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+:nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
