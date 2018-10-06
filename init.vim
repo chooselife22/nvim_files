@@ -2,7 +2,7 @@
 " vim  : place in $HOME/.vimrc
 " nvim : place in $HOME/.config/nvim/init.vim
 " General settings
-" --------------------------------------------------------------------------- 
+" ---------------------------------------------------------------------------
 " drop vi support - kept for vim compatibility but not needed for nvim
 " set the runtime path to include Vundle and initialize
 
@@ -34,16 +34,17 @@ if dein#load_state( '~/.cache/dein')
     " :help Ncm2PopupOpen for more information
     set completeopt=noinsert,menuone,noselect
     " " Use <TAB> to select the popup menu:
-    set shortmess+=c
-    inoremap <c-c> <ESC>
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    " set shortmess+=c
+    " inoremap <c-c> <ESC>
 
     call dein#add('ncm2/ncm2-bufword')
     call dein#add('ncm2/ncm2-path')
     call dein#add('ncm2/ncm2-tmux')
     " call dein#add('ncm2/ncm2-html-subscope')
-    " call dein#add('ncm2/ncm2-markdown-subscope')
+    call dein#add('ncm2/ncm2-markdown-subscope')
     " call dein#add('ncm2/ncm2-tern')
     " call dein#add('ncm2/ncm2-cssomni')
     " call dein#add('ncm2/ncm2-syntax')
@@ -65,7 +66,7 @@ if dein#load_state( '~/.cache/dein')
 
   " call dein#add('Shougo/neosnippet.vim')
   " call dein#add('Shougo/neosnippet-snippets')
-  
+
   call dein#add('tpope/vim-endwise')
 
   call dein#add('tpope/vim-rails')
@@ -100,9 +101,9 @@ endif
 filetype plugin indent on
 
 " If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
+if dein#check_install()
+  call dein#install()
+endif
 " ----------- nied --------------
 
 " number of lines at the beginning and end of files checked for file-specific vars
@@ -117,7 +118,7 @@ set number
 " Tab key enters 2 spaces
 " To enter a TAB character when `expandtab` is in effect,
 " CTRL-v-TAB
-set expandtab tabstop=2 shiftwidth=2 softtabstop=2 
+set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " Indent new line the same as the preceding line
 set autoindent
@@ -157,6 +158,9 @@ set hidden
 set list
 set listchars=trail:-
 
+:nnoremap <silent> <F1> <Esc> :e ~/.config/nvim/init.vim <CR>
+:nnoremap <silent> <F2> <Esc> :so ~/.config/nvim/init.vim <CR>
+:nnoremap <silent> <F5> <Esc> :redraw! <CR>
+
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
 :nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-
