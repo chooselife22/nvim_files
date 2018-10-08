@@ -1,11 +1,10 @@
-" (N)Vim Configuration File
+" NVim Configuration File
 " vim  : place in $HOME/.vimrc
 " nvim : place in $HOME/.config/nvim/init.vim
 " General settings
 " ---------------------------------------------------------------------------
 " drop vi support - kept for vim compatibility but not needed for nvim
 " set the runtime path to include Vundle and initialize
-
 " ---------- dein ------------
 if &compatible
   set nocompatible
@@ -91,6 +90,7 @@ if dein#load_state( '~/.cache/dein')
     nmap <c-b> <Esc>:CtrlPBuffer<CR>
 
   call dein#add('tpope/vim-commentary')
+  call dein#add('tpope/vim-fugitive')
 
   " Required:
   call dein#end()
@@ -144,7 +144,7 @@ set clipboard=unnamedplus
 
 " Colors
 syntax enable
-colorscheme nord
+colorscheme OceanicNext
 
 " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
@@ -158,9 +158,11 @@ set hidden
 set list
 set listchars=trail:-
 
-:nnoremap <silent> <F1> <Esc> :e ~/.config/nvim/init.vim <CR>
-:nnoremap <silent> <F2> <Esc> :so ~/.config/nvim/init.vim <CR>
-:nnoremap <silent> <F5> <Esc> :redraw! <CR>
+" --------- Leader Commands -----------
+nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
+nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
+nnoremap <silent> <leader>rs :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces
-:nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" --------- Mappings ------------------
+nnoremap <Space> za
+nnoremap <silent> <F5> <Esc> :redraw! <CR> :nohl <CR>
