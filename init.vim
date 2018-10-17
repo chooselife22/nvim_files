@@ -14,88 +14,86 @@ endif
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state( '~/.cache/dein')
-  call dein#begin( '~/.cache/dein')
+call dein#begin( '~/.cache/dein')
 
-  " Required:
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+" Required:
+call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  call dein#add('wsdjeg/dein-ui.vim')
+call dein#add('wsdjeg/dein-ui.vim')
 
-  " call dein#add('Shougo/deoplete.nvim')
+" call dein#add('Shougo/deoplete.nvim')
 
-  " nvim Completion Manager
-  call dein#add('ncm2/ncm2')
-  call dein#add('roxma/nvim-yarp')
-  " call dein#add('ncm2/ncm2-neoinclude')
-    " enable ncm2 for all buffers
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-    " :help Ncm2PopupOpen for more information
-    set completeopt=noinsert,menuone,noselect
-    " " Use <TAB> to select the popup menu:
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" nvim Completion Manager
+call dein#add('ncm2/ncm2')
+call dein#add('roxma/nvim-yarp')
+" call dein#add('ncm2/ncm2-neoinclude')
+  " enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  " :help Ncm2PopupOpen for more information
+  set completeopt=noinsert,menuone,noselect
+  " " Use <TAB> to select the popup menu:
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-    " set shortmess+=c
-    " inoremap <c-c> <ESC>
+  " set shortmess+=c
+  " inoremap <c-c> <ESC>
 
-    call dein#add('ncm2/ncm2-bufword')
-    call dein#add('ncm2/ncm2-path')
-    call dein#add('ncm2/ncm2-tmux')
-    " call dein#add('ncm2/ncm2-html-subscope')
-    call dein#add('ncm2/ncm2-markdown-subscope')
-    " call dein#add('ncm2/ncm2-tern')
-    " call dein#add('ncm2/ncm2-cssomni')
-    " call dein#add('ncm2/ncm2-syntax')
+  call dein#add('ncm2/ncm2-bufword')
+  call dein#add('ncm2/ncm2-path')
+  call dein#add('ncm2/ncm2-tmux')
+  " call dein#add('ncm2/ncm2-html-subscope')
+  call dein#add('ncm2/ncm2-markdown-subscope')
+  " call dein#add('ncm2/ncm2-tern')
+  " call dein#add('ncm2/ncm2-cssomni')
+  " call dein#add('ncm2/ncm2-syntax')
 
-    " call dein#add('ncm2/ncm2-match-highlight')
-    " call dein#add('ncm2/ncm2-ultisnips')
-    " call dein#add('SirVer/ultisnips')
-    " call dein#add('honza/vim-snippets')
+  " call dein#add('ncm2/ncm2-match-highlight')
+  " call dein#add('ncm2/ncm2-ultisnips')
+  " call dein#add('SirVer/ultisnips')
+  " call dein#add('honza/vim-snippets')
 
-    " " inoremap <silent> <expr> <CR> ((pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>" ))
+  " " inoremap <silent> <expr> <CR> ((pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>" ))
 
-    " " c-j c-k for moving in snippet
-    " imap <expr> <c-u> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
-    " smap <c-u> <Plug>(ultisnips_expand)
-    " let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-    " let g:UltiSnipsJumpForwardTrigger = "<c-j>"
-    " let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-    " let g:UltiSnipsRemoveSelectModeMappings = 0
+  " " c-j c-k for moving in snippet
+  " imap <expr> <c-u> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
+  " smap <c-u> <Plug>(ultisnips_expand)
+  " let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+  " let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+  " let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+  " let g:UltiSnipsRemoveSelectModeMappings = 0
 
-  " call dein#add('Shougo/neosnippet.vim')
-  " call dein#add('Shougo/neosnippet-snippets')
+" call dein#add('Shougo/neosnippet.vim')
+" call dein#add('Shougo/neosnippet-snippets')
 
-  call dein#add('tpope/vim-endwise')
+call dein#add('tpope/vim-endwise')
 
-  call dein#add('tpope/vim-rails')
-    command! Eroutes Einitializer
-    command! Rroutes Einitializer
+call dein#add('tpope/vim-rails')
+  command! Eroutes Einitializer
+  command! Rroutes Einitializer
 
-  call dein#add('slim-template/vim-slim')
+call dein#add('slim-template/vim-slim')
 
-  " You can specify revision/branch/tag.
-  call dein#add('mhartington/oceanic-next')
-  call dein#add('arcticicestudio/nord-vim')
+" You can specify revision/branch/tag.
+call dein#add('mhartington/oceanic-next')
+call dein#add('arcticicestudio/nord-vim')
 
-  call dein#add('vim-airline/vim-airline')
-    " Airline required
-    set laststatus=2
+call dein#add('vim-airline/vim-airline')
+  " Airline required
+  set laststatus=2
 
-  call dein#add('ctrlpvim/ctrlp.vim')
-    " CtrlP
-    let g:ctrlp_map = '<c-f>'
-    let g:ctrlp_cmd = 'CtrlP'
+call dein#add('ctrlpvim/ctrlp.vim')
+  " CtrlP
+  let g:ctrlp_map = '<c-f>'
+  let g:ctrlp_cmd = 'CtrlP'
 
-    nmap <c-b> <Esc>:CtrlPBuffer<CR>
+  nmap <c-b> <Esc>:CtrlPBuffer<CR>
 
-  call dein#add('tpope/vim-commentary')
-  call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-commentary')
+call dein#add('tpope/vim-fugitive')
 
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
+" Required:
+call dein#end()
+call dein#save_state()
 
 " Required:
 filetype plugin indent on
