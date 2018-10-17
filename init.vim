@@ -164,3 +164,23 @@ nnoremap <silent> <leader>rs :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar
 " --------- Mappings ------------------
 nnoremap <Space> za
 nnoremap <silent> <F5> <Esc> :redraw! <CR> :nohl <CR>
+
+" --------- Rename3 -------------------
+command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
+function! Rename(name, bang)
+    let l:curfile = expand("%:p")
+    let l:curfilepath = expand("%:p:h")
+    let l:newname = l:curfilepath . "/" . a:name
+    let v:errmsg = ""
+    silent! exec "saveas" . a:bang . " " . fnameescape(l:newname)
+    if v:errmsg =~# '^$\|^E329'
+        if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
+            silent exec "bwipe! " . fnameescape(l:curfile)
+            if delete(l:curfile)
+                echoerr "Could not delete " . l:curfile
+            endif
+        endif
+    else
+        echoerr v:errmsg
+    endif
+endfunction
