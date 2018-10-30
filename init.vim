@@ -34,6 +34,7 @@ call dein#add('roxma/nvim-yarp')
   " " Use <TAB> to select the popup menu:
   inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <CR> pumvisible() ? "\<c-y>\<cr>" : "\<CR>"
 
   " set shortmess+=c
   " inoremap <c-c> <ESC>
@@ -65,8 +66,15 @@ call dein#add('roxma/nvim-yarp')
 " call dein#add('Shougo/neosnippet.vim')
 " call dein#add('Shougo/neosnippet-snippets')
 
-call dein#add('tpope/vim-endwise')
+call dein#add('luochen1990/rainbow')
 
+call dein#add('tpope/vim-endwise')
+" https://github.com/roxma/nvim-completion-manager/issues/49#issuecomment-285923119
+let g:endwise_no_mappings = 1
+imap <C-X><CR>   <CR><Plug>AlwaysEnd
+imap <expr> <CR> (pumvisible() ? "\<C-Y>\<CR>\<Plug>DiscretionaryEnd" : "\<CR>\<Plug>DiscretionaryEnd")
+
+call dein#add('vim-ruby/vim-ruby')
 call dein#add('tpope/vim-rails')
   command! Eroutes Einitializer
   command! Rroutes Einitializer
@@ -76,6 +84,10 @@ call dein#add('slim-template/vim-slim')
 " You can specify revision/branch/tag.
 call dein#add('mhartington/oceanic-next')
 call dein#add('arcticicestudio/nord-vim')
+call dein#add('sickill/vim-monokai')
+call dein#add('Lokaltog/vim-distinguished')
+call dein#add('29decibel/codeschool-vim-theme')
+call dein#add('morhetz/gruvbox')
 
 call dein#add('vim-airline/vim-airline')
   " Airline required
@@ -90,6 +102,12 @@ call dein#add('ctrlpvim/ctrlp.vim')
 
 call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-fugitive')
+
+" ag silver-searcher
+call dein#add('mileszs/ack.vim')
+let g:ack_default_options=" -H --nocolor --nogroup --column"
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
 
 " Required:
 call dein#end()
@@ -142,7 +160,11 @@ set clipboard=unnamedplus
 
 " Colors
 syntax enable
-colorscheme OceanicNext
+set background=dark
+colorscheme gruvbox
+
+" Font
+set guifont=DejaVu\ Sans\ Mono
 
 " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
@@ -164,6 +186,7 @@ nnoremap <silent> <leader>rs :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar
 " --------- Mappings ------------------
 nnoremap <Space> za
 nnoremap <silent> <F5> <Esc> :redraw! <CR> :nohl <CR>
+nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
 
 " --------- Rename3 -------------------
 command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
