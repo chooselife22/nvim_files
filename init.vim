@@ -66,6 +66,10 @@ call dein#add('roxma/nvim-yarp')
 " call dein#add('Shougo/neosnippet.vim')
 " call dein#add('Shougo/neosnippet-snippets')
 
+call dein#add('isRuslan/vim-es6')
+call dein#add('pangloss/vim-javascript')
+call dein#add('posva/vim-vue')
+
 call dein#add('luochen1990/rainbow')
 
 call dein#add('tpope/vim-endwise')
