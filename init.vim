@@ -66,6 +66,9 @@ call dein#add('roxma/nvim-yarp')
 " call dein#add('Shougo/neosnippet.vim')
 " call dein#add('Shougo/neosnippet-snippets')
 
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-eunuch')
+
 call dein#add('isRuslan/vim-es6')
 call dein#add('pangloss/vim-javascript')
 call dein#add('posva/vim-vue')
@@ -78,10 +81,19 @@ let g:endwise_no_mappings = 1
 imap <C-X><CR>   <CR><Plug>AlwaysEnd
 imap <expr> <CR> (pumvisible() ? "\<C-Y>\<CR>\<Plug>DiscretionaryEnd" : "\<CR>\<Plug>DiscretionaryEnd")
 
+call dein#add('tpope/vim-bundler')
 call dein#add('vim-ruby/vim-ruby')
 call dein#add('tpope/vim-rails')
   command! Eroutes Einitializer
   command! Rroutes Einitializer
+  let g:rails_projections = {
+        \ "app/services/*.rb": {
+        \   "command": "service",
+        \   "template": ["class {camelcase|capitalize|colons}", "end"],
+        \   "test": [ "spec/services/{}_spec.rb" ],
+        \   "rubyMacro": ["process", "version"]
+        \ }
+        \}
 
 call dein#add('slim-template/vim-slim')
 
@@ -101,17 +113,24 @@ call dein#add('ctrlpvim/ctrlp.vim')
   " CtrlP
   let g:ctrlp_map = '<c-f>'
   let g:ctrlp_cmd = 'CtrlP'
-
   nmap <c-b> <Esc>:CtrlPBuffer<CR>
+  set wildignore+=*/tmp/*,*/coverage/*,*.so,*.swp,*.zip,*.cache,*.gz
+  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+  if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  endif
 
 call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-fugitive')
 
-" ag silver-searcher
-call dein#add('mileszs/ack.vim')
-let g:ack_default_options=" -H --nocolor --nogroup --column"
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
+" ag
+call dein#add('rking/ag.vim')
+
+" Find and Replace
+call dein#add('brooth/far.vim')
+" :Far foo bar **/*.py
+" :Fardo
 
 " Required:
 call dein#end()
@@ -185,11 +204,10 @@ set listchars=trail:-
 " --------- Leader Commands -----------
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
-nnoremap <silent> <leader>rs :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " --------- Mappings ------------------
 nnoremap <Space> za
-nnoremap <silent> <F5> <Esc> :redraw! <CR> :nohl <CR>
+nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
 nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
 
 " --------- Rename3 -------------------
