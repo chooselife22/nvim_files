@@ -72,6 +72,7 @@ call dein#add('tpope/vim-eunuch')
 call dein#add('isRuslan/vim-es6')
 call dein#add('pangloss/vim-javascript')
 call dein#add('posva/vim-vue')
+call dein#add('stephpy/vim-yaml')
 
 call dein#add('luochen1990/rainbow')
 
@@ -121,8 +122,15 @@ call dein#add('ctrlpvim/ctrlp.vim')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   endif
 
+call dein#add('junegunn/vim-easy-align')
+  " Start interactive EasyAlign in visual mode (e.g. vipga)
+  xmap ga <Plug>(EasyAlign)
+  " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+  nmap ga <Plug>(EasyAlign)
+
 call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-repeat')
 
 " ag
 call dein#add('rking/ag.vim')
@@ -131,6 +139,8 @@ call dein#add('rking/ag.vim')
 call dein#add('brooth/far.vim')
 " :Far foo bar **/*.py
 " :Fardo
+
+call dein#add('moll/vim-bbye')
 
 " Required:
 call dein#end()
@@ -201,14 +211,23 @@ set hidden
 set list
 set listchars=trail:-
 
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+set splitbelow
+set splitright
+
 " --------- Leader Commands -----------
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
+nnoremap <Leader>q :Bdelete<CR>
 
 " --------- Mappings ------------------
 nnoremap <Space> za
 nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
 nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
+tnoremap <Esc> <C-\><C-n>
 
 " --------- Rename3 -------------------
 command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
