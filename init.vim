@@ -29,6 +29,7 @@ call dein#add('roxma/nvim-yarp')
 " call dein#add('ncm2/ncm2-neoinclude')
   " enable ncm2 for all buffers
   autocmd BufEnter * call ncm2#enable_for_buffer()
+  autocmd TextChangedI * call ncm2#auto_trigger()
   " :help Ncm2PopupOpen for more information
   set completeopt=noinsert,menuone,noselect
   " " Use <TAB> to select the popup menu:
@@ -45,7 +46,7 @@ call dein#add('roxma/nvim-yarp')
   " call dein#add('ncm2/ncm2-html-subscope')
   call dein#add('ncm2/ncm2-markdown-subscope')
   " call dein#add('ncm2/ncm2-tern')
-  " call dein#add('ncm2/ncm2-cssomni')
+  call dein#add('ncm2/ncm2-cssomni')
   " call dein#add('ncm2/ncm2-syntax')
 
   " call dein#add('ncm2/ncm2-match-highlight')
@@ -68,6 +69,7 @@ call dein#add('roxma/nvim-yarp')
 
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-eunuch')
+call dein#add('tpope/vim-tbone')
 
 call dein#add('isRuslan/vim-es6')
 call dein#add('pangloss/vim-javascript')
@@ -110,17 +112,24 @@ call dein#add('vim-airline/vim-airline')
   " Airline required
   set laststatus=2
 
-call dein#add('ctrlpvim/ctrlp.vim')
-  " CtrlP
-  let g:ctrlp_map = '<c-f>'
-  let g:ctrlp_cmd = 'CtrlP'
-  nmap <c-b> <Esc>:CtrlPBuffer<CR>
-  set wildignore+=*/tmp/*,*/coverage/*,*.so,*.swp,*.zip,*.cache,*.gz
-  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-  if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  endif
+call dein#add('~/.fzf')
+call dein#add('junegunn/fzf.vim')
+nnoremap <silent> <c-p> :Files<CR>
+nnoremap <silent> <c-b> :Buffers<CR>
+
+" call dein#add('ctrlpvim/ctrlp.vim')
+"   " CtrlP
+"   let g:ctrlp_map = '<c-f>'
+"   let g:ctrlp_cmd = 'CtrlP'
+"   nmap <c-p> <Esc>:CtrlP<CR>
+"   nmap <c-b> <Esc>:CtrlPBuffer<CR>
+"   set wildignore+=*/tmp/*,*/coverage/*,*.so,*.swp,*.zip,*.cache,*.gz,/node_modules
+"   let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"   let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+"   if executable('ag')
+"     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"     "let g:ctrlp_user_command = 'rg'
+"   endif
 
 call dein#add('junegunn/vim-easy-align')
   " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -132,6 +141,13 @@ call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-repeat')
 
+" neomake
+" call dein#add('neomake/neomake')
+"   autocmd! BufReadPost,BufWritePost * Neomake
+"   call neomake#configure#automake('w')
+"   let g:neomake_logfile = '/tmp/neomake.log'
+"   let g:neomake_ruby_enabled_makers = ['rubocop']
+
 " ag
 call dein#add('rking/ag.vim')
 
@@ -141,6 +157,7 @@ call dein#add('brooth/far.vim')
 " :Fardo
 
 call dein#add('moll/vim-bbye')
+call dein#add('bogado/file-line')
 
 " Required:
 call dein#end()
@@ -190,6 +207,8 @@ set hlsearch incsearch ignorecase smartcase
 " Use system clipboard
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 set clipboard=unnamedplus
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 
 " Colors
 syntax enable
@@ -225,6 +244,7 @@ nnoremap <Leader>q :Bdelete<CR>
 
 " --------- Mappings ------------------
 nnoremap <Space> za
+nnoremap <silent><F2> :!rspec %<CR>
 nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
 nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
 tnoremap <Esc> <C-\><C-n>
