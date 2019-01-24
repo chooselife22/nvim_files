@@ -21,7 +21,19 @@ call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
 call dein#add('wsdjeg/dein-ui.vim')
 
+" call dein#add('svermeulen/vim-yoink')
 " call dein#add('Shougo/deoplete.nvim')
+
+" call dein#add('hackhowtofaq/vim-solargraph')
+" call dein#add('dbakker/vim-projectroot')
+
+" This language client actually makes use of a binary, hence the `install.sh`.
+" We also need the `next` branch in order to specify
+" a language server's TCP port at the time of writing
+" call dein#add('autozimu/LanguageClient-neovim', { 'branch': 'next', 'build': 'bash install.sh' })
+" let g:LanguageClient_autoStop = 0
+" let g:LanguageClient_serverCommands = { 'ruby': ['solargraph', 'stdio'] }
+" autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
 
 " nvim Completion Manager
 call dein#add('ncm2/ncm2')
@@ -29,7 +41,7 @@ call dein#add('roxma/nvim-yarp')
 " call dein#add('ncm2/ncm2-neoinclude')
   " enable ncm2 for all buffers
   autocmd BufEnter * call ncm2#enable_for_buffer()
-  autocmd TextChangedI * call ncm2#auto_trigger()
+  " autocmd TextChangedI * call ncm2#auto_trigger()
   " :help Ncm2PopupOpen for more information
   set completeopt=noinsert,menuone,noselect
   " " Use <TAB> to select the popup menu:
@@ -43,9 +55,10 @@ call dein#add('roxma/nvim-yarp')
   call dein#add('ncm2/ncm2-bufword')
   call dein#add('ncm2/ncm2-path')
   call dein#add('ncm2/ncm2-tmux')
+  call dein#add('fgrsnau/ncm2-otherbuf')
   " call dein#add('ncm2/ncm2-html-subscope')
   call dein#add('ncm2/ncm2-markdown-subscope')
-  " call dein#add('ncm2/ncm2-tern')
+  call dein#add('ncm2/ncm2-tern')
   call dein#add('ncm2/ncm2-cssomni')
   " call dein#add('ncm2/ncm2-syntax')
 
@@ -148,8 +161,10 @@ call dein#add('tpope/vim-repeat')
 "   let g:neomake_logfile = '/tmp/neomake.log'
 "   let g:neomake_ruby_enabled_makers = ['rubocop']
 
+call dein#add('kopischke/vim-fetch')
+
 " ag
-call dein#add('rking/ag.vim')
+" call dein#add('rking/ag.vim')
 
 " Find and Replace
 call dein#add('brooth/far.vim')
@@ -158,6 +173,23 @@ call dein#add('brooth/far.vim')
 
 call dein#add('moll/vim-bbye')
 call dein#add('bogado/file-line')
+
+" call dein#add('vim-syntastic/syntastic')
+"   " set statusline+=%#warningmsg#
+"   " set statusline+=%{SyntasticStatuslineFlag()}
+"   " set statusline+=%*
+" 
+"   " let g:syntastic_always_populate_loc_list = 1
+"   " let g:syntastic_auto_loc_list = 1
+"   let g:syntastic_check_on_open = 1
+"   let g:syntastic_check_on_wq = 0
+" 
+"   let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+
+call dein#add('w0rp/ale')
+let g:ale_lint_on_text_changed = 'never'
+
+call dein#add('scrooloose/nerdtree')
 
 " Required:
 call dein#end()
