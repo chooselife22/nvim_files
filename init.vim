@@ -147,7 +147,6 @@ call dein#add('~/.fzf')
 call dein#add('junegunn/fzf.vim')
 nnoremap <silent> <c-p> :Files<CR>
 nnoremap <silent> <c-b> :Buffers<CR>
-
 " call dein#add('ctrlpvim/ctrlp.vim')
 "   " CtrlP
 "   let g:ctrlp_map = '<c-f>'
@@ -297,7 +296,7 @@ nnoremap <Space> za
 nnoremap <silent><F2> :!rspec %<CR>
 nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
 nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
-tnoremap <Esc> <C-\><C-n>
+"tnoremap <Esc> <C-\><C-n>
 
 " --------- Rename3 -------------------
 command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
