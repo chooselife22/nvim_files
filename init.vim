@@ -1,4 +1,4 @@
-" NVim Configuration File
+
 " vim  : place in $HOME/.vimrc
 " nvim : place in $HOME/.config/nvim/init.vim
 " General settings
@@ -110,6 +110,24 @@ call dein#add('tpope/vim-rails')
         \   "rubyMacro": ["process", "version"]
         \ }
         \}
+  let g:rails_projections = {
+        \ "app/javascript/*.js": {
+        \   "command": "pack",
+        \ }
+        \}
+  let g:rails_projections = {
+        \ "app/decorators/*_decorator.rb": {
+        \   "command": "decorator",
+        \   "related": "app/models/{}.rb",
+        \   "affinity": "model",
+        \   "test": "spec/decorators/%s_spec.rb",
+        \   "template": [
+        \     "class {camelcase|capitalize|colons}Decorator < Draper::Decorator",
+        \     "end"
+        \   ],
+        \   "keywords": "delegate_all decorates_association object h"
+        \ }
+        \ }
 
 call dein#add('slim-template/vim-slim')
 
@@ -216,7 +234,7 @@ set number
 " Tab key enters 2 spaces
 " To enter a TAB character when `expandtab` is in effect,
 " CTRL-v-TAB
-set expandtab tabstop=2 shiftwidth=2 softtabstop=2
+set expandtab tabstop=2 shiftwidth=2 softtabstop=2 smarttab
 
 " Indent new line the same as the preceding line
 set autoindent
