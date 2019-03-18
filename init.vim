@@ -130,6 +130,8 @@ call dein#add('tpope/vim-rails')
         \ }
 
 call dein#add('slim-template/vim-slim')
+call dein#add('mattn/emmet-vim')
+let g:user_emmet_leader_key='<C-Z>'
 
 " You can specify revision/branch/tag.
 call dein#add('mhartington/oceanic-next')
@@ -205,8 +207,14 @@ call dein#add('bogado/file-line')
 
 call dein#add('w0rp/ale')
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'vue': ['eslint'],
+\}
 
 call dein#add('scrooloose/nerdtree')
+nmap <silent> <C-E> :NERDTreeToggle<CR>
 
 " Required:
 call dein#end()
@@ -290,6 +298,9 @@ set splitright
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
 nnoremap <Leader>q :Bdelete<CR>
+nmap <silent> <leader>af :ALEFix<cr>
+nmap <silent> <leader>aj :ALENext<cr>
+nmap <silent> <leader>ak :ALEPrevious<cr>
 
 " --------- Mappings ------------------
 nnoremap <Space> za
