@@ -103,19 +103,6 @@ call dein#add('tpope/vim-rails')
   command! Eroutes Einitializer
   command! Rroutes Einitializer
   let g:rails_projections = {
-        \ "app/services/*.rb": {
-        \   "command": "service",
-        \   "template": ["class {camelcase|capitalize|colons}", "end"],
-        \   "test": [ "spec/services/{}_spec.rb" ],
-        \   "rubyMacro": ["process", "version"]
-        \ }
-        \}
-  let g:rails_projections = {
-        \ "app/javascript/*.js": {
-        \   "command": "pack",
-        \ }
-        \}
-  let g:rails_projections = {
         \ "app/decorators/*_decorator.rb": {
         \   "command": "decorator",
         \   "related": "app/models/{}.rb",
@@ -126,6 +113,15 @@ call dein#add('tpope/vim-rails')
         \     "end"
         \   ],
         \   "keywords": "delegate_all decorates_association object h"
+        \ },
+        \ "app/javascript/*.js": {
+        \   "command": "pack",
+        \ },
+        \ "app/services/*.rb": {
+        \   "command": "service",
+        \   "template": ["class {camelcase|capitalize|colons}", "end"],
+        \   "test": [ "spec/services/{}_spec.rb" ],
+        \   "rubyMacro": ["process", "version"]
         \ }
         \ }
 
@@ -211,6 +207,11 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
 \   'vue': ['eslint'],
+\}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'ruby': ['rubocop'],
 \}
 
 call dein#add('scrooloose/nerdtree')
@@ -305,6 +306,7 @@ nmap <silent> <leader>ak :ALEPrevious<cr>
 " --------- Mappings ------------------
 nnoremap <Space> za
 nnoremap <silent><F2> :!rspec %<CR>
+nnoremap <silent> <F4> <Esc> :ALEFix <CR>
 nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
 nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
 "tnoremap <Esc> <C-\><C-n>
