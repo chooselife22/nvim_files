@@ -193,29 +193,42 @@ call dein#add('bogado/file-line')
 "   " set statusline+=%#warningmsg#
 "   " set statusline+=%{SyntasticStatuslineFlag()}
 "   " set statusline+=%*
-" 
+"
 "   " let g:syntastic_always_populate_loc_list = 1
 "   " let g:syntastic_auto_loc_list = 1
 "   let g:syntastic_check_on_open = 1
 "   let g:syntastic_check_on_wq = 0
-" 
+"
 "   let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 
-call dein#add('w0rp/ale')
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'vue': ['eslint'],
-\}
+call dein#add('benmills/vimux')
+call dein#add('janko/vim-test')
+let test#strategy = "vimux"
+  " :TestNearest -> nearest to the cursor
+  nnoremap <silent> <leader>tn :TestNearest<CR>
+  " :TestFile -> all in current file
+  nnoremap <silent> <leader>tf :TestFile<CR>
+  " :TestSuite -> all
+  nnoremap <silent> <leader>ts :TestSuite<CR>
+  " :TestLast -> only last test
+  nnoremap <silent> <leader>tl :TestLast<CR>
+  " :TestVisit -> test file from which last tests were run from
+  nnoremap <silent> <leader>tv :TestVisit<CR>
 
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'ruby': ['rubocop'],
-\}
+call dein#add('w0rp/ale')
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   'ruby': ['rubocop'],
+  \   'javascript': ['eslint'],
+  \   'vue': ['eslint'],
+  \}
+  nmap <silent> <leader>af :ALEFix<cr>
+  nmap <silent> <leader>aj :ALENext<cr>
+  nmap <silent> <leader>ak :ALEPrevious<cr>
 
 call dein#add('scrooloose/nerdtree')
-nmap <silent> <C-E> :NERDTreeToggle<CR>
+  nmap <silent> <C-E> :NERDTreeToggle<CR>
 
 " Required:
 call dein#end()
@@ -265,8 +278,8 @@ set hlsearch incsearch ignorecase smartcase
 " Use system clipboard
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 set clipboard=unnamedplus
-noremap <Leader>y "+y
-noremap <Leader>p "+p
+  noremap <Leader>y "+y
+  noremap <Leader>p "+p
 
 " Colors
 syntax enable
@@ -299,14 +312,9 @@ set splitright
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
 nnoremap <Leader>q :Bdelete<CR>
-nmap <silent> <leader>af :ALEFix<cr>
-nmap <silent> <leader>aj :ALENext<cr>
-nmap <silent> <leader>ak :ALEPrevious<cr>
 
 " --------- Mappings ------------------
 nnoremap <Space> za
-nnoremap <silent><F2> :!rspec %<CR>
-nnoremap <silent> <F4> <Esc> :ALEFix <CR>
 nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
 nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
 "tnoremap <Esc> <C-\><C-n>
