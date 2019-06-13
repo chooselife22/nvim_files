@@ -126,6 +126,7 @@ call dein#add('tpope/vim-rails')
         \ }
 
 call dein#add('slim-template/vim-slim')
+call dein#add('kchmck/vim-coffee-script')
 call dein#add('mattn/emmet-vim')
 let g:user_emmet_leader_key='<C-Z>'
 
@@ -221,6 +222,7 @@ call dein#add('w0rp/ale')
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \   'ruby': ['rubocop'],
   \   'javascript': ['eslint'],
+  \   'es6': ['eslint'],
   \   'vue': ['eslint'],
   \}
   nmap <silent> <leader>af :ALEFix<cr>
@@ -229,6 +231,7 @@ call dein#add('w0rp/ale')
 
 call dein#add('scrooloose/nerdtree')
   nmap <silent> <C-E> :NERDTreeToggle<CR>
+  let g:NERDTreeChDirMode=2
 
 " Required:
 call dein#end()
