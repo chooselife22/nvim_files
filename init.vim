@@ -87,6 +87,8 @@ call dein#add('tpope/vim-tbone')
 call dein#add('isRuslan/vim-es6')
 call dein#add('pangloss/vim-javascript')
 call dein#add('posva/vim-vue')
+  autocmd FileType vue syntax sync fromstart
+call dein#add('digitaltoad/vim-pug')
 call dein#add('stephpy/vim-yaml')
 
 call dein#add('luochen1990/rainbow')
@@ -102,7 +104,15 @@ call dein#add('vim-ruby/vim-ruby')
 call dein#add('tpope/vim-rails')
   command! Eroutes Einitializer
   command! Rroutes Einitializer
+  " https://raw.githubusercontent.com/tpope/vim-rails/master/doc/rails.txt
   let g:rails_projections = {
+        \ "spec/fabricators/*_fabricator.rb": {
+        \   "command": "fabricator",
+        \   "related": "app/models/{}.rb",
+        \   "affinity": "model",
+        \   "template": [ "Fabricator :{} do", "end"],
+        \   "keywords": "delegate_all decorates_association object h"
+        \ },
         \ "app/decorators/*_decorator.rb": {
         \   "command": "decorator",
         \   "related": "app/models/{}.rb",
@@ -315,6 +325,10 @@ set splitright
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
 nnoremap <Leader>q :Bdelete<CR>
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
 " --------- Mappings ------------------
 nnoremap <Space> za
@@ -341,3 +355,13 @@ function! Rename(name, bang)
         echoerr v:errmsg
     endif
 endfunction
+
+" --------- gf for webpack js -------------------
+au BufNewFile,BufRead *app/javascript/*.js
+      \ setl path+=app/javascript/,node_modules |
+      \ setl isfname+=@-@ |
+      \ setl suffixesadd+=.vue,.json,.scss
+au BufNewFile,BufRead *app/javascript/*.vue
+      \ setl path+=app/javascript/,node_modules |
+      \ setl isfname+=@-@ |
+      \ setl suffixesadd+=.js,.json,.scss
