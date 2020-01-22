@@ -1,0 +1,18 @@
+{
+  "suggest.autoTrigger": "always",
+  "solargraph.checkGemVersion": false,
+  "snippets.loadFromExtensions": false,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.noselect": false,
+  "solargraph.checkGemVersion": false,
+  "coc.preferences.extensionUpdateCheck":"never",
+  "coc.source.file.triggerCharacters": [
+    "/",
+    "."
+  ],
+  "solargraph.trace.server": "messages",
+  "solargraph.hover": true,
+  "solargraph.useBundler": true,
+  "solargraph.completion": true,
+  "javascript.suggest.enabled": false
+}
