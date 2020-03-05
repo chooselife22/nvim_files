@@ -18,6 +18,7 @@ call dein#add('wsdjeg/dein-ui.vim')
 
 call dein#add('neoclide/coc.nvim', {'merge':0, 'build': 'yarn install --frozen-lockfile'})
 source ~/.config/nvim/plugins/coc.vim
+" :call coc#util#install()
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-eunuch')
 call dein#add('tpope/vim-tbone')
@@ -98,7 +99,8 @@ call dein#add('scrooloose/nerdtree',
       \{'on_cmd':'NERDTreeToggle'})
   nmap <silent> <C-E> :NERDTreeToggle<CR>
   let g:NERDTreeChDirMode=2
-call dein#add('liuchengxu/vim-clap')
+call dein#add('liuchengxu/vim-clap',
+  \{ 'rev': '751ff99' })
 " call dein#add('drzel/vim-split-line')
 nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
 call dein#add('dstein64/vim-win')
