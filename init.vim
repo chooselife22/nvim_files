@@ -221,6 +221,7 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
 nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <leader>y "+y
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
 " --------- Mappings ------------------
 nnoremap <Space> za
@@ -236,6 +237,12 @@ au BufNewFile,BufRead *app/javascript/*.js
 au BufNewFile,BufRead *app/javascript/*.vue
       \ setl path+=app/javascript/,node_modules |
       \ setl isfname+=@-@ |
+      \ setl suffixesadd+=.js,.json,.scss
+au BufNewFile,BufRead *app/javascript/*.scss
+      \ setl path+=app/javascript/,node_modules |
+      \ setl suffixesadd+=.css,.scss,.sass |
+      \ setl isfname+=@-@ |
+      \ setl inex=substitute(v:fname,'^\\~','','')
 
 " --------- Terminal Mode ---------
 tnoremap <C-J> <C-\><C-n><C-W><C-J>
