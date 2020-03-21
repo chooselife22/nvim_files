@@ -10,121 +10,154 @@ if &compatible
   set nocompatible
 endif
 
+" Check OS
+if !exists("g:env")
+    if has("win64") || has("win32") || has("win16")
+        let g:env = "WINDOWS"
+    else
+        let g:env = toupper(substitute(system('uname'), '\n', '', ''))
+    endif
+endif
+
+" Set config path
+if g:env =~ 'DARWIN'
+	" ... to do Mac OS X-specific stuff.
+endif
+
+if g:env =~ 'LINUX'
+  let root_dir = "~/.config/nvim"
+endif
+
+if g:env =~ 'WINDOWS'
+  let root_dir = "~/AppData/Local/nvim" 
+endif
+
+if g:env =~ 'CYGWIN'
+	" ... to do Cygwin-specific stuff.
+endif
+
+if g:env =~ 'MINGW'
+	" ... to do MinGW-specific stuff (Git Bash, mainly).
+endif
+
 " Required:
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 call dein#begin( '~/.cache/dein')
 call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 call dein#add('wsdjeg/dein-ui.vim')
 
-call dein#add('neoclide/coc.nvim', {'merge':0, 'build': 'yarn install --frozen-lockfile'})
-source ~/.config/nvim/plugins/coc.vim
-" :call coc#util#install()
 call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-eunuch')
-call dein#add('tpope/vim-tbone')
-call dein#add('tpope/vim-vinegar')
-call dein#add('tpope/vim-endwise')
-call dein#add('tpope/vim-bundler')
-call dein#add('tpope/vim-rails')
 call dein#add('tpope/vim-commentary')
-call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-eunuch')
+call dein#add('tpope/vim-endwise')
 call dein#add('tpope/vim-repeat')
-call dein#add('isRuslan/vim-es6')
-call dein#add('pangloss/vim-javascript')
-call dein#add('posva/vim-vue')
-  autocmd FileType vue syntax sync fromstart
-call dein#add('digitaltoad/vim-pug')
-call dein#add('stephpy/vim-yaml')
-call dein#add('luochen1990/rainbow')
-call dein#add('vim-ruby/vim-ruby')
-source ~/.config/nvim/plugins/vim-rails.vim
-call dein#add('slim-template/vim-slim')
-  autocmd FileType slim setlocal foldmethod=indent
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('mattn/emmet-vim')
-let g:user_emmet_leader_key='<C-Z>'
-call dein#add('mhartington/oceanic-next')
-call dein#add('arcticicestudio/nord-vim')
-call dein#add('sickill/vim-monokai')
-call dein#add('Lokaltog/vim-distinguished')
-call dein#add('29decibel/codeschool-vim-theme')
-call dein#add('morhetz/gruvbox')
-call dein#add('vim-airline/vim-airline')
-  " Airline required
-  set laststatus=2
-call dein#add('~/.fzf')
-call dein#add('junegunn/fzf.vim')
-nnoremap <silent> <c-p> :Clap! files<CR>
-nnoremap <silent> <c-b> :Clap! buffers<CR>
-call dein#add('junegunn/vim-easy-align')
-  " Start interactive EasyAlign in visual mode (e.g. vipga)
-  xmap ga <Plug>(EasyAlign)
-  " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  nmap ga <Plug>(EasyAlign)
-call dein#add('kopischke/vim-fetch')
-call dein#add('brooth/far.vim')
-  " :Far {pattern} {replace-with} {file-mask} [params]
-  " Find the text to replace.
-  " :Farp [params]
-  " Same as Far, but allows to enter {pattern}, {replace-with} and {file-mask} one after the other.
-  " :Fardo [params]
-  " Runs the replacement task.
-  " :Refar [params]
-  " Change Far/Farp params.
-  " :F {pattern} {file-mask} [params]
-  " Find only.
-  let g:far#source = 'rgnvim'
-  let g:far#source = 'rg'
 
-call dein#add('moll/vim-bbye')
-call dein#add('bogado/file-line')
-call dein#add('benmills/vimux')
-let g:VimuxHeight = "30"
-let g:VimuxOrientation = "h"
-call dein#add('janko/vim-test')
-let test#strategy = "vimux"
-  " :TestNearest -> nearest to the cursor
-  nnoremap <silent> <leader>tn :TestNearest<CR>
-  " :TestFile -> all in current file
-  nnoremap <silent> <leader>tf :TestFile<CR>
-  " :TestSuite -> all
-  nnoremap <silent> <leader>ts :TestSuite<CR>
-  " :TestLast -> only last test
-  nnoremap <silent> <leader>tl :TestLast<CR>
-  " :TestVisit -> test file from which last tests were run from
-  nnoremap <silent> <leader>tv :TestVisit<CR>
-call dein#add('w0rp/ale')
-source ~/.config/nvim/plugins/ale.vim
-call dein#add('scrooloose/nerdtree',
-      \{'on_cmd':'NERDTreeToggle'})
-  nmap <silent> <C-E> :NERDTreeToggle<CR>
-  let g:NERDTreeChDirMode=2
-call dein#add('liuchengxu/vim-clap',
-  \{ 'rev': '751ff99' })
-" call dein#add('drzel/vim-split-line')
-nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
-call dein#add('dstein64/vim-win')
-  map <leader>w <plug>WinWin
-  command Win :call win#Win()
-  let g:win_ext_command_map = {
-      \   'c': 'wincmd c',
-      \   'C': 'close!',
-      \   'q': 'quit',
-      \   'Q': 'quit!',
-      \   '!': 'qall!',
-      \   'V': 'wincmd v',
-      \   'S': 'wincmd s',
-      \   'n': 'bnext',
-      \   'N': 'bnext!',
-      \   'p': 'bprevious',
-      \   'P': 'bprevious!',
-      \   "\<c-n>": 'tabnext',
-      \   "\<c-p>": 'tabprevious',
-      \   '=': 'wincmd =',
-      \   't': 'tabnew',
-      \   'x': 'Win#exit',
-      \   "\<cr>": 'Win#exit'
-      \ }
+if !exists('g:vscode')
+  call dein#add('tpope/vim-bundler')
+  call dein#add('tpope/vim-rails')
+  call dein#add('tpope/vim-tbone')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('tpope/vim-vinegar')
+  call dein#add('neoclide/coc.nvim', {'merge':0, 'build': 'yarn install --frozen-lockfile'})
+  exec "source" . root_dir . "/plugins/coc.vim"
+  " :call coc#util#install()
+  call dein#add('isRuslan/vim-es6')
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('posva/vim-vue')
+    autocmd FileType vue syntax sync fromstart
+  call dein#add('digitaltoad/vim-pug')
+  call dein#add('stephpy/vim-yaml')
+  call dein#add('luochen1990/rainbow')
+  call dein#add('vim-ruby/vim-ruby')
+  exec "source" . root_dir . "/plugins/coc.vim"
+  call dein#add('slim-template/vim-slim')
+    autocmd FileType slim setlocal foldmethod=indent
+  call dein#add('mattn/emmet-vim')
+  let g:user_emmet_leader_key='<C-Z>'
+  call dein#add('mhartington/oceanic-next')
+  call dein#add('arcticicestudio/nord-vim')
+  call dein#add('sickill/vim-monokai')
+  call dein#add('Lokaltog/vim-distinguished')
+  call dein#add('29decibel/codeschool-vim-theme')
+  call dein#add('morhetz/gruvbox')
+  call dein#add('vim-airline/vim-airline')
+    " Airline required
+    set laststatus=2
+  call dein#add('~/.fzf')
+  call dein#add('junegunn/fzf.vim')
+  nnoremap <silent> <c-p> :Clap! files<CR>
+  nnoremap <silent> <c-b> :Clap! buffers<CR>
+  call dein#add('junegunn/vim-easy-align')
+    " Start interactive EasyAlign in visual mode (e.g. vipga)
+    xmap ga <Plug>(EasyAlign)
+    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+    nmap ga <Plug>(EasyAlign)
+  call dein#add('kopischke/vim-fetch')
+  call dein#add('brooth/far.vim')
+    " :Far {pattern} {replace-with} {file-mask} [params]
+    " Find the text to replace.
+    " :Farp [params]
+    " Same as Far, but allows to enter {pattern}, {replace-with} and {file-mask} one after the other.
+    " :Fardo [params]
+    " Runs the replacement task.
+    " :Refar [params]
+    " Change Far/Farp params.
+    " :F {pattern} {file-mask} [params]
+    " Find only.
+    let g:far#source = 'rgnvim'
+    let g:far#source = 'rg'
+
+  call dein#add('moll/vim-bbye')
+  call dein#add('bogado/file-line')
+  call dein#add('benmills/vimux')
+  let g:VimuxHeight = "30"
+  let g:VimuxOrientation = "h"
+  call dein#add('janko/vim-test')
+  let test#strategy = "vimux"
+    " :TestNearest -> nearest to the cursor
+    nnoremap <silent> <leader>tn :TestNearest<CR>
+    " :TestFile -> all in current file
+    nnoremap <silent> <leader>tf :TestFile<CR>
+    " :TestSuite -> all
+    nnoremap <silent> <leader>ts :TestSuite<CR>
+    " :TestLast -> only last test
+    nnoremap <silent> <leader>tl :TestLast<CR>
+    " :TestVisit -> test file from which last tests were run from
+    nnoremap <silent> <leader>tv :TestVisit<CR>
+  call dein#add('w0rp/ale')
+  exec "source" . root_dir . "/plugins/coc.vim"
+  call dein#add('slim-template/vim-slim')
+  call dein#add('scrooloose/nerdtree',
+        \{'on_cmd':'NERDTreeToggle'})
+    nmap <silent> <C-E> :NERDTreeToggle<CR>
+    let g:NERDTreeChDirMode=2
+  call dein#add('liuchengxu/vim-clap',
+    \{ 'rev': '751ff99' })
+  " call dein#add('drzel/vim-split-line')
+  nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+  call dein#add('dstein64/vim-win')
+    map <leader>w <plug>WinWin
+    command Win :call win#Win()
+    let g:win_ext_command_map = {
+        \   'c': 'wincmd c',
+        \   'C': 'close!',
+        \   'q': 'quit',
+        \   'Q': 'quit!',
+        \   '!': 'qall!',
+        \   'V': 'wincmd v',
+        \   'S': 'wincmd s',
+        \   'n': 'bnext',
+        \   'N': 'bnext!',
+        \   'p': 'bprevious',
+        \   'P': 'bprevious!',
+        \   "\<c-n>": 'tabnext',
+        \   "\<c-p>": 'tabprevious',
+        \   '=': 'wincmd =',
+        \   't': 'tabnew',
+        \   'x': 'Win#exit',
+        \   "\<cr>": 'Win#exit'
+        \ }
+endif
 
 " Required:
 call dein#end()
