@@ -1,163 +1,221 @@
-
-" vim  : place in $HOME/.vimrc
-" nvim : place in $HOME/.config/nvim/init.vim
-" General settings
-" ---------------------------------------------------------------------------
-" drop vi support - kept for vim compatibility but not needed for nvim
-" set the runtime path to include Vundle and initialize
-" ---------- dein ------------
-if &compatible
-  set nocompatible
-endif
-
-" Check OS
-if !exists("g:env")
-    if has("win64") || has("win32") || has("win16")
-        let g:env = "WINDOWS"
-    else
-        let g:env = toupper(substitute(system('uname'), '\n', '', ''))
-    endif
-endif
-
-" Set config path
-if g:env =~ 'DARWIN'
-	" ... to do Mac OS X-specific stuff.
-endif
-
-if g:env =~ 'LINUX'
-  let root_dir = "~/.config/nvim"
-endif
-
-if g:env =~ 'WINDOWS'
-  let root_dir = "~/AppData/Local/nvim" 
-endif
-
-if g:env =~ 'CYGWIN'
-	" ... to do Cygwin-specific stuff.
-endif
-
-if g:env =~ 'MINGW'
-	" ... to do MinGW-specific stuff (Git Bash, mainly).
-endif
+runtime settings.vim
+runtime utilities.vim
 
 " Required:
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 call dein#begin( '~/.cache/dein')
 call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+" https://github.com/wsdjeg/dein-ui.vim
+" :DeinUpdate
 call dein#add('wsdjeg/dein-ui.vim')
 
+" https://github.com/tpope/vim-surround
+" example: cs"'
 call dein#add('tpope/vim-surround')
+
+" https://github.com/tpope/vim-commentary
+" gc<target-of-motion>
+" gcap - comment out paragraph
 call dein#add('tpope/vim-commentary')
+
+" https://github.com/tpope/vim-eunuch
+" :Delete: Delete a buffer and the file on disk simultaneously.
+" :Unlink: Like :Delete, but keeps the now empty buffer.
+" :Move: Rename a buffer and the file on disk simultaneously.
+" :Rename: Like :Move, but relative to the current file's containing directory.
+" :Chmod: Change the permissions of the current file.
+" :Mkdir: Create a directory, defaulting to the parent of the current file.
+" :Cfind: Run find and load the results into the quickfix list.
+" :Clocate: Run locate and load the results into the quickfix list.
+" :Lfind/:Llocate: Like above, but use the location list.
+" :Wall: Write every open window. Handy for kicking off tools like guard.
+" :SudoWrite: Write a privileged file with sudo.
+" :SudoEdit: Edit a privileged file with sudo.
+" File type detection for sudo -e is based on original file name.
+" New files created with a shebang line are automatically made executable.
 call dein#add('tpope/vim-eunuch')
+
+" https://github.com/tpope/vim-endwise
+" This is a simple plugin that helps to end certain structures automatically.
 call dein#add('tpope/vim-endwise')
+
+" https://github.com/tpope/vim-repeat
+" Repeat.vim remaps . in a way that plugins can tap into it.
 call dein#add('tpope/vim-repeat')
 
-if !exists('g:vscode')
-  call dein#add('tpope/vim-bundler')
-  call dein#add('tpope/vim-rails')
-  call dein#add('tpope/vim-tbone')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('tpope/vim-vinegar')
-  call dein#add('neoclide/coc.nvim', {'merge':0, 'build': 'yarn install --frozen-lockfile'})
-  exec "source" . root_dir . "/plugins/coc.vim"
-  " :call coc#util#install()
-  call dein#add('isRuslan/vim-es6')
-  call dein#add('pangloss/vim-javascript')
-  call dein#add('posva/vim-vue')
-    autocmd FileType vue syntax sync fromstart
-  call dein#add('digitaltoad/vim-pug')
-  call dein#add('stephpy/vim-yaml')
-  call dein#add('luochen1990/rainbow')
-  call dein#add('vim-ruby/vim-ruby')
-  exec "source" . root_dir . "/plugins/coc.vim"
-  call dein#add('slim-template/vim-slim')
-    autocmd FileType slim setlocal foldmethod=indent
-  call dein#add('mattn/emmet-vim')
-  let g:user_emmet_leader_key='<C-Z>'
-  call dein#add('mhartington/oceanic-next')
-  call dein#add('arcticicestudio/nord-vim')
-  call dein#add('sickill/vim-monokai')
-  call dein#add('Lokaltog/vim-distinguished')
-  call dein#add('29decibel/codeschool-vim-theme')
-  call dein#add('morhetz/gruvbox')
-  call dein#add('vim-airline/vim-airline')
-    " Airline required
-    set laststatus=2
-  call dein#add('~/.fzf')
-  call dein#add('junegunn/fzf.vim')
-  nnoremap <silent> <c-p> :Clap! files<CR>
-  nnoremap <silent> <c-b> :Clap! buffers<CR>
-  call dein#add('junegunn/vim-easy-align')
-    " Start interactive EasyAlign in visual mode (e.g. vipga)
-    xmap ga <Plug>(EasyAlign)
-    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-    nmap ga <Plug>(EasyAlign)
-  call dein#add('kopischke/vim-fetch')
-  call dein#add('brooth/far.vim')
-    " :Far {pattern} {replace-with} {file-mask} [params]
-    " Find the text to replace.
-    " :Farp [params]
-    " Same as Far, but allows to enter {pattern}, {replace-with} and {file-mask} one after the other.
-    " :Fardo [params]
-    " Runs the replacement task.
-    " :Refar [params]
-    " Change Far/Farp params.
-    " :F {pattern} {file-mask} [params]
-    " Find only.
-    let g:far#source = 'rgnvim'
-    let g:far#source = 'rg'
+" https://github.com/tpope/vim-bundler
+" :Bundle, which wraps bundle.
+" An internalized version of bundle open: :Bopen (and :Bsplit, :Btabedit, etc.).
+" 'path' and 'tags' are automatically altered to include all gems from your bundle. (Generate those tags with gem-ctags!)
+" Highlight Bundler keywords in Gemfile.
+" Support for gf in Gemfile.lock, plus syntax highlighting that distinguishes between installed and missing gems.
+" Support for projectionist.vim, including projections based on which gems are bundled.
+call dein#add('tpope/vim-bundler')
 
-  call dein#add('moll/vim-bbye')
-  call dein#add('bogado/file-line')
-  call dein#add('benmills/vimux')
-  let g:VimuxHeight = "30"
-  let g:VimuxOrientation = "h"
-  call dein#add('janko/vim-test')
-  let test#strategy = "vimux"
-    " :TestNearest -> nearest to the cursor
-    nnoremap <silent> <leader>tn :TestNearest<CR>
-    " :TestFile -> all in current file
-    nnoremap <silent> <leader>tf :TestFile<CR>
-    " :TestSuite -> all
-    nnoremap <silent> <leader>ts :TestSuite<CR>
-    " :TestLast -> only last test
-    nnoremap <silent> <leader>tl :TestLast<CR>
-    " :TestVisit -> test file from which last tests were run from
-    nnoremap <silent> <leader>tv :TestVisit<CR>
-  call dein#add('w0rp/ale')
-  exec "source" . root_dir . "/plugins/coc.vim"
-  call dein#add('slim-template/vim-slim')
-  call dein#add('scrooloose/nerdtree',
-        \{'on_cmd':'NERDTreeToggle'})
-    nmap <silent> <C-E> :NERDTreeToggle<CR>
-    let g:NERDTreeChDirMode=2
-  call dein#add('liuchengxu/vim-clap',
-    \{ 'rev': '751ff99' })
-  " call dein#add('drzel/vim-split-line')
-  nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
-  call dein#add('dstein64/vim-win')
-    map <leader>w <plug>WinWin
-    command Win :call win#Win()
-    let g:win_ext_command_map = {
-        \   'c': 'wincmd c',
-        \   'C': 'close!',
-        \   'q': 'quit',
-        \   'Q': 'quit!',
-        \   '!': 'qall!',
-        \   'V': 'wincmd v',
-        \   'S': 'wincmd s',
-        \   'n': 'bnext',
-        \   'N': 'bnext!',
-        \   'p': 'bprevious',
-        \   'P': 'bprevious!',
-        \   "\<c-n>": 'tabnext',
-        \   "\<c-p>": 'tabprevious',
-        \   '=': 'wincmd =',
-        \   't': 'tabnew',
-        \   'x': 'Win#exit',
-        \   "\<cr>": 'Win#exit'
-        \ }
-endif
+" https://github.com/tpope/vim-rails
+" Easy navigation of the Rails directory structure. gf considers context and knows about partials, fixtures, and much more. There are two commands, :A (alternate) and :R (related) for easy jumping between files, including favorites like model to schema, template to helper, and controller to functional test. Commands like :Emodel, :Eview, :Econtroller, are provided to :edit files by type, along with S, V, and T variants for :split, :vsplit, and :tabedit. Throw a bang on the end (:Emodel foo!) to automatically create the file with the standard boilerplate if it doesn't exist. :help rails-navigation
+" :help rails-integration
+call dein#add('tpope/vim-rails')
+
+" https://github.com/tpope/vim-tbone
+" Basic tmux support for Vim.
+" :Tmux lets you call any old tmux command (with really good tab complete).
+" :Tyank and :Tput give you direct access to tmux buffers.
+" :Twrite sends a chunk of text to another pane. Give an argument like windowtitle.2, top-right, or last, or let it default to the previously given argument.
+" :Tattach lets you use a specific tmux session from outside of it.
+call dein#add('tpope/vim-tbone')
+
+" https://github.com/tpope/vim-fugitive
+" The crown jewel of Fugitive is :Git (or just :G), which calls any arbitrary Git command. If you know how to use Git at the command line, you know how to use :Git. It's vaguely akin to :!git but with numerous improvements:
+" :Git commit, :Git rebase -i, and other commands that invoke an editor do their editing in the current Vim instance.
+" :Git diff, :Git log, and other verbose, paginated commands have their output loaded into a temporary buffer. Force this behavior for any command with :Git --paginate or :Git -p.
+" :Git blame uses a temporary buffer with maps for additional triage. Press enter on a line to view the commit where the line changed, or g? to see other available maps. Omit the filename argument and the currently edited file will be blamed in a vertical, scroll-bound split.
+" :Git grep loads matches into the quickfix list, just like :grep.
+" :Git mergetool and :Git difftool load their changesets into the quickfix list.
+" Called with no arguments, :Git opens a summary window with dirty files and unpushed and unpulled commits. Press g? to bring up a list of maps for numerous operations including diffing, staging, committing, rebasing, and stashing. (This is the successor to the old :Gstatus.)
+" This command (along with all other commands) always uses the current buffer's repository, so you don't need to worry about the current working directory.
+" Additional commands are provided for higher level operations:
+" View any blob, tree, commit, or tag in the repository with :Gedit (and :Gsplit, etc.). For example, :Gedit HEAD~3:% loads the current file as it existed 3 commits ago.
+" :Gdiffsplit brings up the staged version of the file side by side with the working tree version. Use Vim's diff handling capabilities to apply changes to the staged version, and write that buffer to stage the changes. You can also give an arbitrary :Gedit argument to diff against older versions of the file.
+" :Gread is a variant of git checkout -- filename that operates on the buffer rather than the file itself. This means you can use u to undo it and you never get any warnings about the file changing outside Vim.
+" :Gwrite writes to both the work tree and index versions of a file, making it like git add when called from a work tree file and like git checkout when called from the index or a blob in history.
+" :GMove does a git mv on the current file and changes the buffer name to match. :GRename does the same with a destination filename relative to the current file's directory.
+" :GDelete does a git rm on the current file and simultaneously deletes the buffer. :GRemove does the same but leaves the (now empty) buffer open.
+" :GBrowse to open the current file on the web front-end of your favorite hosting provider, with optional line range (try it in visual mode). Plugins are available for popular providers such as GitHub, GitLab, Bitbucket, Gitee, Pagure, and Phabricator.
+call dein#add('tpope/vim-fugitive')
+
+" https://github.com/tpope/vim-vinegar
+" Press - in any buffer to hop up to the directory listing and seek to the file you just came from
+call dein#add('tpope/vim-vinegar')
+
+" https://github.com/wsdjeg/vim-fetch
+" vim path/to/file.ext:12:3 in the shell to open file.ext on line 12 at column 3
+" :e[dit] path/to/file.ext:100:12 in Vim to edit file.ext on line 100 at column 12
+" gF with the cursor at ^ on path/to^/file.ext:98,8 to edit file.ext on line 98, column 8
+" gF with the selection |...| on |path to/file.ext|:5:2 to edit file.ext on line 5, column 2
+call dein#add('wsdjeg/vim-fetch')
+
+" https://github.com/airblade/vim-gitgutter
+" GitGutterFold
+" You can stage or undo an individual hunk when your cursor is in it:
+" stage the hunk with <Leader>hs or
+" undo it with <Leader>hu.
+call dein#add('airblade/vim-gitgutter')
+  let g:gitgutter_terminal_reports_focus=0
+  function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', a, m, r)
+  endfunction
+set statusline+=%{GitStatus()}
+
+" https://github.com/neoclide/coc.nvim
+call dein#add('neoclide/coc.nvim', {'branch': 'release'})
+runtime plugins/coc.vim
+
+" https://github.com/luochen1990/rainbow
+call dein#add('luochen1990/rainbow')
+nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
+
+" https://github.com/mattn/emmet-vim
+call dein#add('mattn/emmet-vim')
+let g:user_emmet_leader_key='<C-Z>'
+
+" --------------------------
+"  languages
+call dein#add('isRuslan/vim-es6')
+call dein#add('pangloss/vim-javascript')
+call dein#add('posva/vim-vue')
+  autocmd FileType vue syntax sync fromstart
+call dein#add('digitaltoad/vim-pug')
+call dein#add('stephpy/vim-yaml')
+call dein#add('vim-ruby/vim-ruby')
+runtime plugins/vim-rails.vim
+call dein#add('slim-template/vim-slim')
+  autocmd FileType slim setlocal foldmethod=indent
+
+" https://github.com/morhetz/gruvbox
+call dein#add('morhetz/gruvbox')
+colorscheme gruvbox
+
+" https://github.com/vim-airline/vim-airline
+call dein#add('vim-airline/vim-airline')
+  " Airline required
+  set laststatus=2
+
+" https://github.com/junegunn/fzf.vim
+call dein#add('~/.fzf')
+call dein#add('junegunn/fzf.vim')
+nnoremap <silent> <c-p> :Clap! files<CR>
+nnoremap <silent> <c-b> :Clap! buffers<CR>
+
+" https://github.com/brooth/far.vim
+" :Far {pattern} {replace-with} {file-mask} [params]
+" Find the text to replace.
+" :Farp [params]
+" Same as Far, but allows to enter {pattern}, {replace-with} and {file-mask} one after the other.
+" :Fardo [params]
+" Runs the replacement task.
+" :Refar [params]
+" Change Far/Farp params.
+" :F {pattern} {file-mask} [params]
+" Find only.
+call dein#add('brooth/far.vim')
+let g:far#source = 'rgnvim'
+let g:far#source = 'rg'
+
+" https://github.com/moll/vim-bbye
+" Instead of :bdelete and :bwipeout, use :Bdelete and :Bwipeout respectively. Fortunately autocomplete helps by sorting :Bdelete before its lowercase brother.
+" As it's likely you'll be using :Bdelete often, make a shortcut to \q, for example, to save time. Throw this to your vimrc:
+" :nnoremap <Leader>q :Bdelete<CR>
+" Buffer delete vs wipeout
+" Vim has two commands for closing a buffer: :bdelete and :bwipeout. The former removes the file from the buffer list, clears its options, variables and mappings. However, it remains in the jumplist, so Ctrl-o takes you back and reopens the file. If that's not what you want, use :bwipeout or Bbye's equivalent :Bwipeout where you would've used :bdelete.
+call dein#add('moll/vim-bbye')
+nnoremap <Leader>q :Bdelete<CR>
+
+" https://github.com/dense-analysis/ale
+" ALE acts as a "language client" to support a variety of Language Server Protocol features, including:
+" Diagnostics (via Language Server Protocol linters)
+" Go To Definition (:ALEGoToDefinition)
+" Completion (Built in completion support, or with Deoplete)
+" Finding references (:ALEFindReferences)
+" Hover information (:ALEHover)
+" Symbol search (:ALESymbolSearch)
+call dein#add('dense-analysis/ale')
+runtime plugins/ale.vim
+
+" https://github.com/preservim/nerdtree
+call dein#add('preservim/nerdtree')
+  nmap <silent> <C-e> :NERDTreeToggle<CR>
+  let g:NERDTreeChDirMode=2
+
+" https://github.com/liuchengxu/vim-clap
+call dein#add('liuchengxu/vim-clap', { 'do': ':Clap install-binary' })
+let g:clap_insert_mode_only = 1
+
+" https://github.com/dstein64/vim-win
+call dein#add('dstein64/vim-win')
+  map <leader>w <plug>WinWin
+  " command Win :call win#Win()
+  let g:win_ext_command_map = {
+      \   'c': 'wincmd c',
+      \   'C': 'close!',
+      \   'q': 'quit',
+      \   'Q': 'quit!',
+      \   '!': 'qall!',
+      \   'V': 'wincmd v',
+      \   'S': 'wincmd s',
+      \   'n': 'bnext',
+      \   'N': 'bnext!',
+      \   'p': 'bprevious',
+      \   'P': 'bprevious!',
+      \   "\<c-n>": 'tabnext',
+      \   "\<c-p>": 'tabprevious',
+      \   '=': 'wincmd =',
+      \   't': 'tabnew',
+      \   'x': 'Win#exit',
+      \   "\<cr>": 'Win#exit'
+      \ }
 
 " Required:
 call dein#end()
@@ -173,82 +231,9 @@ if dein#check_install()
 endif
 " ----------- nied --------------
 
-" completion option
-"set completeopt=longest,menuone
-
-" number of lines at the beginning and end of files checked for file-specific vars
-set modelines=0
-
-" use Unicode
-set encoding=utf-8
-
-" line numbers and distances
-set number
-
-" Tab key enters 2 spaces
-" To enter a TAB character when `expandtab` is in effect,
-" CTRL-v-TAB
-set expandtab tabstop=2 shiftwidth=2 softtabstop=2 smarttab
-
-" Indent new line the same as the preceding line
-set autoindent
-
-" statusline indicates insert or normal mode
-set showmode showcmd
-
-" escape character in prompt https://github.com/neovim/neovim/issues/6041
-set guicursor=
-
-" highlight matching parens, braces, brackets, etc
-set showmatch
-
-" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-" set autochdir
-
-" http://vim.wikia.com/wiki/Searching
-set hlsearch incsearch ignorecase smartcase
-
-" Use system clipboard
-" http://vim.wikia.com/wiki/Accessing_the_system_clipboard
-set clipboard=unnamedplus
-  noremap <Leader>y "+y
-  noremap <Leader>p "+p
-
-" Colors
-" if has("termguicolors")
-"   set termguicolors
-" endif
-" if &term =~# '^screen'
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" endif
-" set t_Co=256
-" set t_ut=
-set background=dark
-colorscheme gruvbox
-
-" Font
-set guifont=DejaVu\ Sans\ Mono
-
-set foldmethod=syntax
-set foldlevel=20
-
-set hidden
-
-set list
-set listchars=trail:-
-
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-set splitbelow
-set splitright
-
 " --------- Leader Commands -----------
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
-nnoremap <Leader>q :Bdelete<CR>
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
@@ -258,9 +243,11 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
 " --------- Mappings ------------------
 nnoremap <Space> za
-nnoremap <silent> <F5> <Esc> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> :redraw! <CR>
-nnoremap <silent> <F6> <Esc> :RainbowToggle <CR>
+nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 "tnoremap <Esc> <C-\><C-n>
+nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+nnoremap <C-n> :bprevious<CR>
+nnoremap <C-m> :bnext<CR>
 
 " --------- gf for webpack js -------------------
 au BufNewFile,BufRead *app/javascript/*.js
