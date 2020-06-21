@@ -9,6 +9,8 @@ set encoding=utf-8
 " line numbers and distances
 set number
 
+set relativenumber
+
 " Tab key enters 2 spaces
 " To enter a TAB character when `expandtab` is in effect,
 " CTRL-v-TAB
@@ -66,7 +68,6 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 set splitbelow
 set splitright
-
 " ---------------------------------------------------------------------------
 " drop vi support - kept for vim compatibility but not needed for nvim
 " set the runtime path to include Vundle and initialize

@@ -102,7 +102,9 @@ call dein#add('wsdjeg/vim-fetch')
 " stage the hunk with <Leader>hs or
 " undo it with <Leader>hu.
 call dein#add('airblade/vim-gitgutter')
-  let g:gitgutter_terminal_reports_focus=0
+  let g:gitgutter_terminal_reports_focus = 0
+  let g:gitgutter_eager = 0
+  let g:gitgutter_sign_priority = 10
   function! GitStatus()
     let [a,m,r] = GitGutterGetHunkSummary()
     return printf('+%d ~%d -%d', a, m, r)
@@ -133,6 +135,8 @@ call dein#add('vim-ruby/vim-ruby')
 runtime plugins/vim-rails.vim
 call dein#add('slim-template/vim-slim')
   autocmd FileType slim setlocal foldmethod=indent
+call dein#add('kana/vim-textobj-user')
+call dein#add('https://github.com/whatyouhide/vim-textobj-erb')
 
 " https://github.com/morhetz/gruvbox
 call dein#add('morhetz/gruvbox')
@@ -192,10 +196,12 @@ call dein#add('preservim/nerdtree')
 " https://github.com/liuchengxu/vim-clap
 call dein#add('liuchengxu/vim-clap', { 'do': ':Clap install-binary' })
 let g:clap_insert_mode_only = 1
+let g:clap_layout = { 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }
+let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 
 " https://github.com/dstein64/vim-win
 call dein#add('dstein64/vim-win')
-  map <leader>w <plug>WinWin
+  map <leader>win <plug>WinWin
   " command Win :call win#Win()
   let g:win_ext_command_map = {
       \   'c': 'wincmd c',
@@ -216,6 +222,18 @@ call dein#add('dstein64/vim-win')
       \   'x': 'Win#exit',
       \   "\<cr>": 'Win#exit'
       \ }
+
+" https://github.com/bkad/CamelCaseMotion
+" A vim script to provide CamelCase motion through words (fork of inkarkat's camelcasemotion script)
+call dein#add('bkad/CamelCaseMotion')
+  let g:camelcasemotion_key = '<leader>'
+
+" https://github.com/cohama/lexima.vim
+" Auto close parentheses and repeat by dot dot dot...
+call dein#add('cohama/lexima.vim')
+  let g:lexima_enable_basic_rules = 1
+  let g:lexima_enable_newline_rules = 1
+  let g:lexima_enable_endwise_rules = 0 " vim-endwise
 
 " Required:
 call dein#end()
@@ -246,8 +264,6 @@ nnoremap <Space> za
 nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 "tnoremap <Esc> <C-\><C-n>
 nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
-nnoremap <C-n> :bprevious<CR>
-nnoremap <C-m> :bnext<CR>
 
 " --------- gf for webpack js -------------------
 au BufNewFile,BufRead *app/javascript/*.js
