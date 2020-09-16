@@ -3,6 +3,7 @@ runtime utilities.vim
 
 " Required:
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
 call dein#begin( '~/.cache/dein')
 call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
@@ -112,8 +113,11 @@ call dein#add('airblade/vim-gitgutter')
 set statusline+=%{GitStatus()}
 
 " https://github.com/neoclide/coc.nvim
-call dein#add('neoclide/coc.nvim', {'branch': 'release'})
+call dein#add('neoclide/coc.nvim', {'merge': 0, 'rev': 'release'})
 runtime plugins/coc.vim
+
+" https://github.com/honza/vim-snippets
+call dein#add('honza/vim-snippets')
 
 " https://github.com/luochen1990/rainbow
 call dein#add('luochen1990/rainbow')
@@ -125,27 +129,37 @@ let g:user_emmet_leader_key='<C-Z>'
 
 " --------------------------
 "  languages
-call dein#add('isRuslan/vim-es6')
-call dein#add('pangloss/vim-javascript')
-call dein#add('posva/vim-vue')
-  autocmd FileType vue syntax sync fromstart
-call dein#add('digitaltoad/vim-pug')
-call dein#add('stephpy/vim-yaml')
-call dein#add('vim-ruby/vim-ruby')
+"call dein#add('isRuslan/vim-es6')
+"call dein#add('pangloss/vim-javascript')
+"call dein#add('posva/vim-vue')
+  "autocmd FileType vue syntax sync fromstart
+"call dein#add('digitaltoad/vim-pug')
+"call dein#add('stephpy/vim-yaml')
+"call dein#add('vim-ruby/vim-ruby')
 runtime plugins/vim-rails.vim
-call dein#add('slim-template/vim-slim')
-  autocmd FileType slim setlocal foldmethod=indent
+" call dein#add('slim-template/vim-slim')
+"   autocmd FileType slim setlocal foldmethod=indent
 call dein#add('kana/vim-textobj-user')
 call dein#add('https://github.com/whatyouhide/vim-textobj-erb')
+
+" https://github.com/habamax/vim-gruvbit
+" call dein#add('habamax/vim-gruvbit')
+" colorscheme gruvbit
 
 " https://github.com/morhetz/gruvbox
 call dein#add('morhetz/gruvbox')
 colorscheme gruvbox
 
+" https://github.com/joshdick/onedark.vim
+" call dein#add('joshdick/onedark.vim')
+" colorscheme onedark
+call dein#add('sheerun/vim-polyglot')
+
 " https://github.com/vim-airline/vim-airline
 call dein#add('vim-airline/vim-airline')
   " Airline required
   set laststatus=2
+  " let g:airline_theme='onedark'
 
 " https://github.com/junegunn/fzf.vim
 call dein#add('~/.fzf')
@@ -188,6 +202,38 @@ nnoremap <Leader>q :Bdelete<CR>
 call dein#add('dense-analysis/ale')
 runtime plugins/ale.vim
 
+" https://github.com/Shougo/deoplete.nvim
+"call dein#add('Shougo/deoplete.nvim')
+"if !has('nvim')
+"  call dein#add('roxma/nvim-yarp')
+"  call dein#add('roxma/vim-hug-neovim-rpc')
+"endif
+"let g:deoplete#enable_at_startup = 1
+"" let g:deoplete#enable_at_startup = 0
+"" autocmd InsertEnter * call deoplete#enable()
+"  " https://github.com/dense-analysis/ale#usage-completion
+"  call deoplete#custom#option('sources', { '_': ['ale']})
+
+"" https://github.com/Shougo/neosnippet.vim
+"call dein#add('Shougo/neosnippet.vim')
+"call dein#add('Shougo/neosnippet-snippets')
+"" This is an example ~/.vimrc configuration for Neosnippet. It is assumed you already have deoplete configured. With the settings of the example, you can use the following keys:
+"" C-k to select-and-expand a snippet from the deoplete popup (Use C-n and C-p to select it). C-k can also be used to jump to the next field in the snippet.
+"" Tab to select the next field to fill in the snippet.
+
+"  " Plugin key-mappings.
+"  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"  xmap <C-k>     <Plug>(neosnippet_expand_target)
+"  " SuperTab like snippets behavior.
+"  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"  "imap <expr><TAB>
+"  " \ pumvisible() ? "\<C-n>" :
+"  " \ neosnippet#expandable_or_jumpable() ?
+"  " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
 " https://github.com/preservim/nerdtree
 call dein#add('preservim/nerdtree')
   nmap <silent> <C-e> :NERDTreeToggle<CR>
@@ -195,45 +241,30 @@ call dein#add('preservim/nerdtree')
 
 " https://github.com/liuchengxu/vim-clap
 call dein#add('liuchengxu/vim-clap', { 'do': ':Clap install-binary' })
-let g:clap_insert_mode_only = 1
 let g:clap_layout = { 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }
 let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
-
-" https://github.com/dstein64/vim-win
-call dein#add('dstein64/vim-win')
-  map <leader>win <plug>WinWin
-  " command Win :call win#Win()
-  let g:win_ext_command_map = {
-      \   'c': 'wincmd c',
-      \   'C': 'close!',
-      \   'q': 'quit',
-      \   'Q': 'quit!',
-      \   '!': 'qall!',
-      \   'V': 'wincmd v',
-      \   'S': 'wincmd s',
-      \   'n': 'bnext',
-      \   'N': 'bnext!',
-      \   'p': 'bprevious',
-      \   'P': 'bprevious!',
-      \   "\<c-n>": 'tabnext',
-      \   "\<c-p>": 'tabprevious',
-      \   '=': 'wincmd =',
-      \   't': 'tabnew',
-      \   'x': 'Win#exit',
-      \   "\<cr>": 'Win#exit'
-      \ }
 
 " https://github.com/bkad/CamelCaseMotion
 " A vim script to provide CamelCase motion through words (fork of inkarkat's camelcasemotion script)
 call dein#add('bkad/CamelCaseMotion')
   let g:camelcasemotion_key = '<leader>'
 
+" https://github.com/jiangmiao/auto-pairs
+call dein#add('jiangmiao/auto-pairs')
+
 " https://github.com/cohama/lexima.vim
 " Auto close parentheses and repeat by dot dot dot...
-call dein#add('cohama/lexima.vim')
-  let g:lexima_enable_basic_rules = 1
-  let g:lexima_enable_newline_rules = 1
-  let g:lexima_enable_endwise_rules = 0 " vim-endwise
+" call dein#add('cohama/lexima.vim')
+"   let g:lexima_enable_basic_rules = 1
+"   let g:lexima_enable_newline_rules = 1
+"   let g:lexima_enable_endwise_rules = 1 " vim-endwise
+
+  " https://github.com/cohama/lexima.vim/issues/65 - class with deoplete
+  " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  " function! s:my_cr_function() abort
+  "   " Combine deoplete's smart close with lexima's expansion.
+  "   return pumvisible() ? deoplete#smart_close_popup() . "\<CR>" : lexima#expand('<CR>', 'i')
+  " endfunction
 
 " Required:
 call dein#end()

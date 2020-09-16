@@ -9,6 +9,7 @@
   "suggest.snippetIndicator": "►",
   "suggest.noselect": true,
   "coc.preferences.extensionUpdateCheck":"never",
+  "coc.diagnostic.displayByAle": true,
   "coc.source.file.triggerCharacters": [
     "/",
     "."
