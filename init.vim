@@ -181,6 +181,7 @@ nnoremap <silent> <c-b> :Clap! buffers<CR>
 call dein#add('brooth/far.vim')
 let g:far#source = 'rgnvim'
 let g:far#source = 'rg'
+let g:far#enable_undo=1
 
 " https://github.com/moll/vim-bbye
 " Instead of :bdelete and :bwipeout, use :Bdelete and :Bwipeout respectively. Fortunately autocomplete helps by sorting :Bdelete before its lowercase brother.
@@ -237,7 +238,7 @@ runtime plugins/ale.vim
 " https://github.com/preservim/nerdtree
 call dein#add('preservim/nerdtree')
   nmap <silent> <C-e> :NERDTreeToggle<CR>
-  let g:NERDTreeChDirMode=2
+  " let g:NERDTreeChDirMode=2
 
 " https://github.com/liuchengxu/vim-clap
 call dein#add('liuchengxu/vim-clap', { 'do': ':Clap install-binary' })
@@ -250,7 +251,7 @@ call dein#add('bkad/CamelCaseMotion')
   let g:camelcasemotion_key = '<leader>'
 
 " https://github.com/jiangmiao/auto-pairs
-call dein#add('jiangmiao/auto-pairs')
+" call dein#add('jiangmiao/auto-pairs')
 
 " https://github.com/cohama/lexima.vim
 " Auto close parentheses and repeat by dot dot dot...
@@ -265,6 +266,17 @@ call dein#add('jiangmiao/auto-pairs')
   "   " Combine deoplete's smart close with lexima's expansion.
   "   return pumvisible() ? deoplete#smart_close_popup() . "\<CR>" : lexima#expand('<CR>', 'i')
   " endfunction
+
+call dein#add('jremmen/vim-ripgrep')
+
+" https://github.com/AndrewRadev/splitjoin.vim
+" This plugin is meant to simplify a task I've found too common in my workflow: switching between a single-line statement and a multi-line one. It offers the following default keybindings, which can be customized:
+" gS to split a one-liner into multiple lines
+" gJ (with the cursor on the first line of a block) to join a block into a single-line statement.
+call dein#add('AndrewRadev/splitjoin.vim')
+let g:splitjoin_ruby_curly_braces = 0
+let g:splitjoin_ruby_hanging_args = 0
+let g:splitjoin_ruby_do_block_split = 0
 
 " Required:
 call dein#end()
@@ -283,11 +295,10 @@ endif
 " --------- Leader Commands -----------
 nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim <CR>
 nnoremap <silent> <leader>rc :so ~/.config/nvim/init.vim <CR>
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
-nnoremap <leader>y "+y
+" nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+" nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+" nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+" nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
 " --------- Mappings ------------------

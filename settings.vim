@@ -23,7 +23,7 @@ set autoindent
 set showmode showcmd
 
 " escape character in prompt https://github.com/neovim/neovim/issues/6041
-set guicursor=
+" set guicursor=
 
 " highlight matching parens, braces, brackets, etc
 set showmatch

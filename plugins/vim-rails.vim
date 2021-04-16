@@ -23,10 +23,35 @@ let g:rails_projections = {
       \ "app/javascript/*.js": {
       \   "command": "pack",
       \ },
+      \ "app/javascript/controllers/*_controller.js": {
+      \   "command": "reflexjs",
+      \   "template": ["import ApplicationController from './application_controller'", "", "export default class extends ApplicationController {", "}"],
+      \ },
       \ "app/services/*.rb": {
       \   "command": "service",
       \   "template": ["class {camelcase|capitalize|colons}", "end"],
       \   "test": [ "spec/services/{}_spec.rb" ],
       \   "rubyMacro": ["process", "version"]
+      \ },
+      \ "app/forms/*_form.rb": {
+      \   "command": "form",
+      \   "related": "app/models/{}.rb",
+      \   "affinity": "model",
+      \   "template": ["class {camelcase|capitalize|colons}Form", "end"],
+      \   "test": [ "spec/forms/{}_spec.rb" ],
+      \ },
+      \ "app/components/*/component.rb": {
+      \   "command": "c",
+      \   "template": ["class {camelcase|capitalize|colons}::Component < ViewComponent::Base", "end"],
+      \   "test": [ "spec/components/{}_component_spec.rb" ],
+      \ },
+      \ "app/components/*/component.html.slim": {
+      \   "command": "cv",
+      \ },
+      \ "app/components/*/component.js": {
+      \   "command": "cjs",
+      \ },
+      \ "app/components/*/component.css": {
+      \   "command": "cstyle",
       \ }
       \ }
