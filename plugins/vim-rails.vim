@@ -23,6 +23,9 @@ let g:rails_projections = {
       \ "app/javascript/*.js": {
       \   "command": "pack",
       \ },
+      \ "app/javascript/*.vue": {
+      \   "command": "vue",
+      \ },
       \ "app/javascript/controllers/*_controller.js": {
       \   "command": "reflexjs",
       \   "template": ["import ApplicationController from './application_controller'", "", "export default class extends ApplicationController {", "}"],
@@ -41,11 +44,15 @@ let g:rails_projections = {
       \   "test": [ "spec/forms/{}_spec.rb" ],
       \ },
       \ "app/components/*/component.rb": {
+      \   "related": "app/components/{}/component.html.slim",
       \   "command": "c",
       \   "template": ["class {camelcase|capitalize|colons}::Component < ViewComponent::Base", "end"],
       \   "test": [ "spec/components/{}_component_spec.rb" ],
+      \   "rubyHelper": [ "helpers"],
       \ },
       \ "app/components/*/component.html.slim": {
+      \   "related": "app/components/{}/component.rb",
+      \   "rubyAction": ["content"],
       \   "command": "cv",
       \ },
       \ "app/components/*/component.js": {

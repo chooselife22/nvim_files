@@ -161,6 +161,17 @@ call dein#add('vim-airline/vim-airline')
   set laststatus=2
   " let g:airline_theme='onedark'
 
+" Airline slow
+let g:airline_extensions = []
+if ! has('gui_running')
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
+endif
+
 " https://github.com/junegunn/fzf.vim
 call dein#add('~/.fzf')
 call dein#add('junegunn/fzf.vim')
